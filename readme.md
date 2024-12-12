@@ -30,7 +30,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:<version>")
     implementation("org.jetbrains.exposed:exposed-jdbc:<version>")
     implementation("net.postgis:postgis-jdbc:<postgis-driver-version>")
-    implementation("com.your-library:extension-exposed-postgis:<version>")
+    implementation("io.propertium:gis:0.1")
 }
 ```
 
