@@ -1,0 +1,6 @@
+/.idea/
+/gradle/.tmp/
+/gradle/caches/
+/gradle/daemon/
+/gradle/kotlin-profile/
+/gradle/native/
