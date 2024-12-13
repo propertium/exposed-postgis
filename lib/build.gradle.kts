@@ -1,6 +1,5 @@
 plugins {
-    alias(libs.plugins.kotlin.jvm)
-    `java-library`
+    kotlin("jvm")
     alias(libs.plugins.kotlin.plugin.serialization)
     `maven-publish`
     signing
@@ -12,8 +11,6 @@ repositories {
     mavenCentral()
 }
 
-
-
 dependencies {
     implementation("net.postgis:postgis-jdbc:2023.1.0") {
         exclude(module = "postgresql")
@@ -22,9 +19,7 @@ dependencies {
     implementation(libs.exposed.core)
     implementation(libs.exposed.dao)
     implementation(libs.exposed.jdbc)
-    implementation(libs.exposed.java.time)
-    implementation(libs.exposed.json)
-    implementation(libs.exposed.kotlin.datetime)
+
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.testcontainers:junit-jupiter:1.20.4")
@@ -39,8 +34,6 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
-
-
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
     outputDirectory.set(buildDir.resolve("dokka"))
@@ -58,11 +51,9 @@ tasks.register<Jar>("dokkaJavadocJar") {
     archiveClassifier.set("javadoc")
 }
 
-tasks {
-    val sourcesJar by creating(Jar::class) {
-        archiveClassifier.set("sources")
-        from(sourceSets["main"].allSource)
-    }
+val sourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
+    from(sourceSets.main.get().allSource)
 }
 
 publishing {
@@ -72,7 +63,8 @@ publishing {
             artifactId = "exposed-postgis"
 
             artifact(tasks.named("dokkaJavadocJar"))
-            artifact(tasks.named("sourcesJar"))
+            artifact(sourcesJar)
+
             pom {
                 name.set("extension-exposed-postgis")
                 description.set("extension-exposed-postgis is a Kotlin library built on top of Exposed to support PostGIS-enabled PostgreSQL databases. This library provides seamless and type-safe integration for spatial data manipulation.")
