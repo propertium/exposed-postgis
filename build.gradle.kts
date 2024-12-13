@@ -4,9 +4,16 @@ plugins {
     signing
 }
 
+subprojects {
+    tasks.withType<JavaCompile> {
+        sourceCompatibility = "11"
+        targetCompatibility = "11"
+    }
+}
+
 allprojects {
     group = "io.github.nikitok"
-    version = "0.1"
+    version = "0.3"
 
     repositories {
         mavenCentral()

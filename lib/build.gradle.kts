@@ -12,6 +12,8 @@ repositories {
     mavenCentral()
 }
 
+
+
 dependencies {
     implementation("net.postgis:postgis-jdbc:2023.1.0") {
         exclude(module = "postgresql")
@@ -68,7 +70,6 @@ publishing {
         create<MavenPublication>("maven") {
             from(components["java"])
             artifactId = "exposed-postgis"
-//            version = "1.0.0"
 
             artifact(tasks.named("dokkaJavadocJar"))
             artifact(tasks.named("sourcesJar"))

@@ -30,7 +30,13 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:<version>")
     implementation("org.jetbrains.exposed:exposed-jdbc:<version>")
     implementation("net.postgis:postgis-jdbc:<postgis-driver-version>")
-    implementation("io.github.nikitok:exposed-postgis:0.1")
+    implementation("io.github.nikitok:exposed-postgis:0.3")
+}
+
+repositories {
+    maven {
+        url = uri("https://repo1.maven.org/maven2/")
+    }
 }
 ```
 
