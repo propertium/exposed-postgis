@@ -24,7 +24,7 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("io.mockk:mockk:1.13.3")
-    testImplementation("org.orbisgis:h2gis:2.2.3")
+    implementation("org.orbisgis:h2gis:2.2.3")
 //    testImplementation("org.orbisgis:h2gis-functions:1.3.2")
 
     implementation("org.jetbrains.dokka:dokka-base:1.9.0")
