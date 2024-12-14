@@ -5,6 +5,8 @@ import net.postgis.jdbc.PGbox2d
 import net.postgis.jdbc.PGgeometry
 import net.postgis.jdbc.geometry.Point
 import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.statements.api.PreparedStatementApi
+import org.postgresql.util.PGobject
 
 fun Table.point(name: String, srid: Int = 4326): Column<Point> = registerColumn(name, PointColumnType(srid))
 infix fun ExpressionWithColumnType<*>.StWithin(box: Expression<*>) : Op<Boolean> = StWithin(this, box)
@@ -13,18 +15,38 @@ fun ExpressionWithColumnType<*>.inEnvelope(box: PGbox2d, boxSrid:Int, columnSrid
 fun ExpressionWithColumnType<*>.intersects(points: Array<Point>, boxSrid:Int, columnSrid: Int) : Op<Boolean> = MakeInrersects(this, points, boxSrid, columnSrid)
 
 private class PointColumnType(val srid: Int = 4326): ColumnType<Point>() {
-    override fun sqlType() = "GEOMETRY(Point, $srid)"
+    override fun sqlType() = "GEOMETRY(POINT, $srid)"
 
     override fun valueFromDB(value: Any): Point? {
         return value as? Point
     }
 
     override fun notNullValueToDB(value: Point): Any {
+
         if (value is Point) {
             if (value.srid == Point.UNKNOWN_SRID) value.srid = srid
-            return PGgeometry(value)
+            return value.toString()
         }
         return value
+    }
+
+//    override fun parameterMarker(value: Point?): String {
+////        return "POINT(?, ?)"
+//        return "POINT(?)"
+//    }
+
+    override fun setParameter(
+        stmt: PreparedStatementApi,
+        index: Int,
+        value: Any?
+    ) {
+        val parameterValue: PGobject? = value?.let {
+            PGobject().apply {
+                type = sqlType()
+                this.value = value as? String
+            }
+        }
+        super.setParameter(stmt, index, value.toString())
     }
 }
 

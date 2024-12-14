@@ -15,17 +15,17 @@ dependencies {
     implementation("net.postgis:postgis-jdbc:2023.1.0") {
         exclude(module = "postgresql")
     }
-    implementation("org.postgresql:postgresql:42.6.0")
+    implementation("org.postgresql:postgresql:42.7.4")
     implementation(libs.exposed.core)
     implementation(libs.exposed.dao)
     implementation(libs.exposed.jdbc)
-
+    implementation(libs.logback.classic)
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.testcontainers:junit-jupiter:1.20.4")
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("io.mockk:mockk:1.13.3")
-    testImplementation("org.testcontainers:postgresql:1.20.4")
+    testImplementation("org.orbisgis:h2gis:2.2.3")
+//    testImplementation("org.orbisgis:h2gis-functions:1.3.2")
 
     implementation("org.jetbrains.dokka:dokka-base:1.9.0")
     implementation("org.jetbrains.dokka:kotlin-as-java-plugin:1.9.0")

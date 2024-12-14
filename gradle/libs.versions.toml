@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.0.21"
+kotlin = "2.1.0"
 kotlin-wrappers-bom = "1.0.0-pre.823"
 ktor = "3.0.1"
 kotlinx-serialization-json = "1.7.3"
@@ -7,8 +7,11 @@ kotlinx-coroutines-core = "1.9.0"
 logback = "1.5.12"
 kotlinx-rpc = "0.4.0"
 exposed-version = "0.57.0"
+exposed-postgis-version = "0.4"
+microutils-version = "3.0.5"
 
 [libraries]
+
 # kotlin
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlin-stdlib-js = { module = "org.jetbrains.kotlin:kotlin-stdlib-js", version.ref = "kotlin" }
@@ -33,6 +36,14 @@ exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "e
 exposed-java-time = { module = "org.jetbrains.exposed:exposed-java-time", version.ref = "exposed-version" }
 exposed-json = { module = "org.jetbrains.exposed:exposed-json", version.ref = "exposed-version" }
 exposed-kotlin-datetime = { module = "org.jetbrains.exposed:exposed-kotlin-datetime", version.ref = "exposed-version" }
+exposed-postgis = { module = "io.github.nikitok:exposed-postgis", version.ref = "exposed-postgis-version"  }
+
+
+#pg
+
+#pg
+postgresql = { module = "org.postgresql:postgresql", version = "42.7.4" }
+postgis-jdbc = { module = "net.postgis:postgis-jdbc", version = "2023.1.0" }
 
 # ktor
 ktor-server-cio = { module = "io.ktor:ktor-server-cio", version.ref = "ktor" }
@@ -61,6 +72,10 @@ ktor-server-metrics-micrometer = { module = "io.ktor:ktor-server-metrics-microme
 
 # logback
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+logging-microutils = { module = "io.github.microutils:kotlin-logging", version.ref = "microutils-version" }
+
+
+hikari-cp = { module = "com.zaxxer:HikariCP", version = "3.4.2" }
 
 # krpc
 kotlinx-rpc-core = { module = "org.jetbrains.kotlinx:kotlinx-rpc-core", version.ref = "kotlinx-rpc" }
