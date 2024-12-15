@@ -39,34 +39,25 @@ private class PointDataColumnType(val srid: Int = 4326) : ColumnType<PointData>(
         return when (value) {
             is Point ->
                 PointData(value.x, value.y, value.srid)
+
             is net.postgis.jdbc.geometry.Point ->
                 PointData(value.x, value.y, value.srid)
+
             else ->
                 throw UnsupportedOperationException("Please dialect ${currentDialect.name}")
         }
     }
 
     override fun notNullValueToDB(value: PointData): Any {
-        return when (val dialect = currentDialect) {
+        return when (currentDialect) {
             is PostgreSQLDialect -> {
                 val point = net.postgis.jdbc.geometry.Point(value.x, value.y)
                 point.srid = value.srid
                 point
             }
+
             else ->
                 throw UnsupportedOperationException("Please use stGeomFromText(PointData(...))")
         }
-    }
-
-    override fun parameterMarker(value: PointData?): String {
-        return super.parameterMarker(value)
-    }
-
-    override fun setParameter(
-        stmt: PreparedStatementApi,
-        index: Int,
-        value: Any?
-    ) {
-        super.setParameter(stmt, index, value)
     }
 }
