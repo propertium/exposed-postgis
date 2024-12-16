@@ -55,8 +55,9 @@ class PointDataColumnTest {
             AttractionsTable.insert {
                 it[id] = 1
                 it[name] = "Marques de Pombal"
+                it[location] = PointData(-9.150173727569582, 38.725295704673194, 4326)
 //                it[location] = stGeomFromText(PointData(-9.150173727569582, 38.725295704673194, 4326))
-                it.setPoint(location, PointData(-9.150173727569582, 38.725295704673194, 4326))
+//                it.setPoint(location, PointData(-9.150173727569582, 38.725295704673194, 4326))
             }
 
             val queryResult = transaction {
